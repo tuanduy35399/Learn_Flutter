@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'recipe.dart';
 void main() { //hàm khởi chạy. Mọi ứng dụng đều bắt đầu từ hàm này
   runApp(const RecipeApp()); //có nhiệm vụ lấy widget mà ta truyền vào rồi gắn nó vô
   //màn hình làm widget gốc
@@ -38,16 +38,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 // 1
     return Scaffold( //Scaffold cung cấp cấu trúc high level
+      //nó chuẩn bị sẵn các vị trí tiêu đề, vùng nd ở giữa, thanh menu phía dưới
       //Ta sẽ sử dụng 2 thuộc tính appBar và body
 // 2
       appBar: AppBar(
         title: Text(widget.title),
       ),
 // 3
-      body: SafeArea(
+      body: SafeArea( //thông minh giúp nd không bị che bởi mấy
+        //phần cứng như tai thỏ, nốt ruồi, thanh điều hướng vuốt ngang
 // 4
-        child: Container(),
+        child: ListView.builder(
+            itemCount: Recipe.dsThucDon.length, //xác định số lượng hàm để hiển thị
+            itemBuilder: (BuildContext context, int index) {
+              return Text(Recipe.dsThucDon[index].label);
+            }
+        )
+        // Container(), //Container như 1 hộp chứa vạn năng
+        //Nơi ta có thể thêm màu sắc, kích thước, hoặc các widget con
       ),
     );
   }
 }
+
+/*
+*Nên tìm hiểu về WidgetTree
+* MaterialApp -> MyHomePage -> Scaffold -> SafeArea -> Container
+* */
