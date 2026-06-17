@@ -13,7 +13,7 @@ void main() {
             title: Text("Lich cup dien Can Tho"),
             centerTitle: true,
           ),
-          body: const MyApp4(),
+          body: const MyApp6(),
         ),
       ),
       debugShowCheckedModeBanner: false,
@@ -21,7 +21,44 @@ void main() {
   );
 }
 
+class MyApp6 extends StatelessWidget {
+  const MyApp6({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(50),
+      // padding: EdgeInsets.all(10),
+      height: 400,
+      width:600,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          color: Colors.blue,
+          boxShadow: [BoxShadow(color: Colors.black, blurRadius: 10),] ,
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+    child: const Text("Day la container"),
+    );
+  }
+}
+
+
+class MyApp5 extends StatelessWidget {
+  const MyApp5({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        print("TextButton was pressed");
+      },
+      // style: TextButton.styleFrom(backgroundColor: Colors.black),
+      child: Text(
+        "Nhấn vô em đi~~",
+        style: TextStyle(fontSize: 14, color: Colors.yellow),
+      ),
+    );
+  }
+}
 
 class MyApp4 extends StatelessWidget {
   const MyApp4({super.key});
@@ -34,7 +71,7 @@ class MyApp4 extends StatelessWidget {
         side: BorderSide(color: Colors.blueAccent, width: 2),
         borderRadius: BorderRadiusGeometry.circular(10),
       ),
-      margin: EdgeInsets.only(left:35 ),
+      margin: EdgeInsets.only(left: 35),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Text(
@@ -231,8 +268,8 @@ class _MyApp3State extends State<MyApp3> {
           padding: const EdgeInsets.all(10.0),
           child: const Text(
             "Day la text de hoc buoi thu 4 "
-            "trong chuoi video YT, hom nay troi rat "
-            "Dep luon day quy vi oi",
+                "trong chuoi video YT, hom nay troi rat "
+                "Dep luon day quy vi oi",
             style: TextStyle(
               color: Colors.red,
               fontSize: 14,
