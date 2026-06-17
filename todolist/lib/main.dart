@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'Site.dart';
+
 void main() {
   runApp(
     MaterialApp(
@@ -12,15 +13,38 @@ void main() {
             title: Text("Lich cup dien Can Tho"),
             centerTitle: true,
           ),
-          body: Column(
-            children: [Expanded(child: CrawlData())],
-            mainAxisAlignment: MainAxisAlignment.start,
-          ),
+          body: const MyApp4(),
         ),
       ),
       debugShowCheckedModeBanner: false,
     ),
   );
+}
+
+
+
+class MyApp4 extends StatelessWidget {
+  const MyApp4({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.pink,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Colors.blueAccent, width: 2),
+        borderRadius: BorderRadiusGeometry.circular(10),
+      ),
+      margin: EdgeInsets.only(left:35 ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Text(
+          'Tuan Duy la tao ne',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+      ),
+    );
+  }
 }
 
 class CrawlData extends StatefulWidget {
@@ -90,7 +114,6 @@ class _CrawlDataState extends State<CrawlData> {
           }
         }
 
-
         // 2. Khởi tạo Object Site của bạn (Bỏ comment nếu cấu trúc Site của bạn giống như thế này)
         Site item = Site(
           dienluc: dienLuc,
@@ -114,7 +137,7 @@ class _CrawlDataState extends State<CrawlData> {
 
   @override
   Widget build(BuildContext context) {
-// Nếu dữ liệu đang trống, hiển thị vòng tròn xoay loading
+    // Nếu dữ liệu đang trống, hiển thị vòng tròn xoay loading
     if (data.isEmpty) {
       return const Center(
         child: Padding(
@@ -124,19 +147,20 @@ class _CrawlDataState extends State<CrawlData> {
       );
     }
 
-// Nếu đã có dữ liệu, hiển thị danh sách Card
+    // Nếu đã có dữ liệu, hiển thị danh sách Card
     return ListView.builder(
       itemCount: data.length, // Số lượng phần tử trong danh sách
       itemBuilder: (context, index) {
-// Lấy ra phần tử thứ index trong mảng dữ liệu
+        // Lấy ra phần tử thứ index trong mảng dữ liệu
         final currentSite = data[index];
 
-// Trả về widget CardItem đã định nghĩa ở trên
+        // Trả về widget CardItem đã định nghĩa ở trên
         return CardItem(site: currentSite);
       },
     );
   }
 }
+
 class CardItem extends StatelessWidget {
   final Site site;
 
@@ -165,27 +189,31 @@ class CardItem extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text("Ngày: ${site.ngay}", style: const TextStyle(color: Colors.red)),
+            Text(
+              "Ngày: ${site.ngay}",
+              style: const TextStyle(color: Colors.red),
+            ),
             const SizedBox(height: 4),
             Text("Thời gian: ${site.thoigian}"),
             const SizedBox(height: 4),
-            Text("Khu vực: ${site.khuvuc}", style: const TextStyle(color: Colors.black87)),
+            Text(
+              "Khu vực: ${site.khuvuc}",
+              style: const TextStyle(color: Colors.black87),
+            ),
             const SizedBox(height: 4),
-            Text("Lý do: ${site.lydo}", style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.grey)),
+            Text(
+              "Lý do: ${site.lydo}",
+              style: const TextStyle(
+                fontStyle: FontStyle.italic,
+                color: Colors.grey,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
 
 class MyApp3 extends StatefulWidget {
   const MyApp3({super.key});
@@ -206,7 +234,7 @@ class _MyApp3State extends State<MyApp3> {
             "trong chuoi video YT, hom nay troi rat "
             "Dep luon day quy vi oi",
             style: TextStyle(
-                color: Colors.red,
+              color: Colors.red,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -221,10 +249,9 @@ class _MyApp3State extends State<MyApp3> {
             width: 2,
           ),
         ),
-
       ),
-      // height: 100,
 
+      // height: 100,
     );
   }
 }
