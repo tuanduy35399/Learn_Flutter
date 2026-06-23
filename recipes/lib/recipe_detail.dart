@@ -16,6 +16,8 @@ class RecipeDetail extends StatefulWidget {
 
 class _RecipeDetailState extends State<RecipeDetail> {
   // TODO: Add _sliderVal here
+  int _sliderVal = 1; //_ nghĩa là private trong file Dart
+  //không bat buoc dat ten nay, co the doi ten khac
   @override
   Widget build(BuildContext context) {
     // 1
@@ -37,7 +39,40 @@ class _RecipeDetailState extends State<RecipeDetail> {
             // 6
             Text(widget.recipe.label, style: const TextStyle(fontSize: 18)),
             // TODO: Add Expanded
+            // 7
+            Expanded(
+// 8
+              child: ListView.builder(
+                padding: const EdgeInsets.all(7.0),
+                itemCount: widget.recipe.ingredients.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final ingredient = widget.recipe.ingredients[index];
+// 9
+                  return Text(
+                      '${ingredient.quantity * _sliderVal} ${ingredient.measure} ${ingredient.name}');
+                  },
+              ),
+            ),
             // TODO: Add Slider() here
+            Slider(
+// 10
+              min: 1,
+              max: 10,
+              divisions: 10,
+// 11
+              label: '${_sliderVal * widget.recipe.servings} servings',
+// 12
+              value: _sliderVal.toDouble(),
+// 13
+              onChanged: (newValue) {
+                setState(() {
+                  _sliderVal = newValue.round(); //round là làm tròn
+                });
+              },
+// 14
+              activeColor: Colors.green,
+              inactiveColor: Colors.black,
+            ),
           ],
         ),
       ),

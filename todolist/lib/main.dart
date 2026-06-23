@@ -13,13 +13,43 @@ void main() {
             title: Text("Lich cup dien Can Tho"),
             centerTitle: true,
           ),
-          body: const MyApp6(),
+          body: const MyApp7(),
         ),
       ),
       debugShowCheckedModeBanner: false,
     ),
   );
 }
+
+class MyApp7 extends StatelessWidget {
+  const MyApp7({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+
+      children: [
+        ElevatedButton(onPressed: (){
+          print("ElevatedButton was pressed");
+        }, style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.yellow,
+          iconSize: 10,
+
+        ),
+    child: Text("ElevatedButton")),
+        OutlinedButton(onPressed: (){
+          print("OutlinedButton was pressed");
+        }, child: Text("OutlinedButton")),
+        TextButton(onPressed: (){
+          print("TextButton was pressed");
+        }, child: Text("TextButton")),
+      ],
+    );
+  }
+}
+
+
+
 
 class MyApp6 extends StatelessWidget {
   const MyApp6({super.key});

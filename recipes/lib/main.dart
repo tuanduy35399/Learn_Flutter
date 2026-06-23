@@ -41,6 +41,7 @@ class RecipesApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
       ),
       home: const MyHomePage(title: 'Recipe Calculator'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
