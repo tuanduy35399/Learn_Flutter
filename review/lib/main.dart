@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:review/constraints/colors.dart';
 import 'package:review/models/todo.dart';
+import 'package:review/pages/add_task.dart';
 import 'package:review/pages/first_page.dart';
 import 'package:review/pages/second_page.dart';
 import 'package:review/widget/todo_items.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -31,7 +33,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Todo> _todos= Todo.listTask(); //Ds đặt trong state
+  final List<Todo> _todos = Todo.listTask(); //Ds đặt trong state
+
+  //Ham xoa
+  void _deleteTask(Todo todo) {
+    setState(() {
+      _todos.remove(todo);
+    });
+  }
+
+  //Ham Chuyen trang add new task
+  Future<void> _gotoAdd() async{
+    final newTodo = await Navigator.push<Todo>(
+      context,
+      MaterialPageRoute(builder: (context)=> AddTask())
+    );
+
+    if( newTodo == null || !mounted){
+      return;
+    }
+
+    setState(() {
+      _todos.add(newTodo);
+    });
+  }
+
 
 
   @override
@@ -53,18 +79,16 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: tdBGColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Icon(
-              Icons.menu, 
-              color: tdBlack, 
-              size: 30),
+          children: [
+            Icon(Icons.menu, color: tdBlack, size: 30),
             SizedBox(
               height: 30,
               width: 30,
               child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset("assets/images/images.png"),
-                  )
-            )
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset("assets/images/images.png"),
+              ),
+            ),
           ],
         ),
       ),
@@ -74,34 +98,48 @@ class _MyHomePageState extends State<MyHomePage> {
         height: 10000,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start, //tránh bị canh giữa nội dung
+          crossAxisAlignment: CrossAxisAlignment.start,
+          //tránh bị canh giữa nội dung
           children: [
             TextField(
               decoration: InputDecoration(
                 label: Text("Search"),
                 prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
               ),
             ),
 
-            Expanded(child: ListView(
-              children: [
-                SizedBox(height: 20), Text(
+            Expanded(
+              child: ListView(
+                children: [
+                  SizedBox(height: 20),
+                  Text(
                     "All Todos",
-                    style: TextStyle(fontSize: 30, color: tdBlack,)
-                ),
-                for( Todo e in _todos)
-              TodoItems(todo: e, onChanged: (value){
-                setState(() {
-                  e.isDone = value ?? false;
-                });
-              },)]))
+                    style: TextStyle(fontSize: 30, color: tdBlack),
+                  ),
+                  for (Todo e in _todos)
+                    TodoItems(
+                      todo: e,
+                      onChanged: (value) {
+                        setState(() {
+                          e.isDone = value ?? false;
+                        });
+                      },
+                      onDelete: (){
+                        _deleteTask(e);
+                      },
+                    ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: _gotoAdd,
         tooltip: 'Increase',
         child: const Icon(Icons.add),
       ),

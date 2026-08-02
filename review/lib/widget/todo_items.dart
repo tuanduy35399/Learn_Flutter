@@ -9,15 +9,15 @@ class TodoItems extends StatelessWidget {
   // //ham constructor yc phai kem tham so todo
   // final VoidCallback onToggle; //VoidCallback là gì?
   // final VoidCallback onEdit;
-  // final VoidCallback onDelete;
+  final VoidCallback onDelete;
 
   const TodoItems({
     super.key,
     required this.todo,
-    required this.onChanged
+    required this.onChanged,
     // required this.onToggle,
     // required this.onEdit,
-    // required this.onDelete,
+    required this.onDelete,
 
   });
 
@@ -44,7 +44,7 @@ class TodoItems extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(onPressed: (){}, icon: Icon(Icons.edit, color: Colors.lightBlue,)),
-            IconButton(onPressed: (){}, icon: Icon(Icons.delete, color: Colors.red,))
+            IconButton(onPressed: onDelete, icon: Icon(Icons.delete, color: Colors.red,))
           ],
         ),
       ),
