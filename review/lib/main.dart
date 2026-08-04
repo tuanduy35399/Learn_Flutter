@@ -253,3 +253,146 @@ class _MyHomePageState extends State<MyHomePage> {
 //     ),
 //   ),
 // ),
+
+
+
+import 'package:flutter/material.dart';
+import 'package:thi_ck/caffe.dart';
+import 'package:thi_ck/list_cafe.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Quán cafe yêu thích',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+        ),
+      ),
+      home: const MyHomePage(
+        title: 'Quán cafe yêu thích',
+      ),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  final String title;
+
+  const MyHomePage({
+    super.key,
+    required this.title,
+  });
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _nameController =
+      TextEditingController();
+
+  // Danh sách các quán cafe
+  final List<Caffe> _cafeList = Caffe.dsCafe();
+
+  void _saveCoffee() {
+    final String name = _nameController.text.trim();
+
+    if (name.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Vui lòng nhập thông tin quán nhé =))'),
+        ),
+      );
+
+      return;
+    }
+
+    setState(() {
+      _cafeList.add(
+        Caffe(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          title: name,
+        ),
+      );
+    });
+
+    // Xóa nội dung TextField sau khi lưu
+    _nameController.clear();
+  }
+
+  void _deleteCoffee(Caffe cafe) {
+    setState(() {
+      _cafeList.remove(cafe);
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Nhập tên quán cafe',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(width: 10),
+
+                ElevatedButton(
+                  onPressed: _saveCoffee,
+                  child: const Text('LƯU'),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 10),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: _cafeList.length,
+                itemBuilder: (context, index) {
+                  final cafe = _cafeList[index];
+
+                  return ListCafe(
+                    cafe: cafe,
+                    onDelete: () {
+                      _deleteCoffee(cafe);
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

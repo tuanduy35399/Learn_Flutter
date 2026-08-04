@@ -18,7 +18,7 @@ class TodoItems extends StatelessWidget {
     // required this.onToggle,
     // required this.onEdit,
     required this.onDelete,
-
+  
   });
 
   @override
